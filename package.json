@@ -8,8 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tailwindcss/ui": "^0.3.0",
+    "aws-amplify": "^3.0.10",
     "next": "^9.4.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "swr": "^0.2.2"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.2.0",
+    "autoprefixer": "^9.7.6",
+    "prettier": "^2.0.5",
+    "tailwindcss": "^1.4.6"
   }
 }
