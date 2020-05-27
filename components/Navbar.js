@@ -21,9 +21,9 @@ function HamburgerSvg() {
       viewBox="0 0 24 24"
     >
       <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         d="M4 6h16M4 12h16M4 18h16"
       />
     </svg>
@@ -39,9 +39,9 @@ function CloseSvg() {
       viewBox="0 0 24 24"
     >
       <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
         d="M6 18L18 6M6 6l12 12"
       />
     </svg>
@@ -206,7 +206,7 @@ function MobileMenu({ isOpen, authStatus }) {
           </div>
         </div>
       ) : (
-        <div class="pb-3">
+        <div className="pb-3">
           <MobileMenuLink url="/signup" center>
             Sign Up
           </MobileMenuLink>
@@ -243,7 +243,7 @@ function Navbar() {
                 avatarUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               />
             ) : (
-              <div class="flex-shrink-0">
+              <div className="flex-shrink-0">
                 <SecondaryAnchorButton url="/login">
                   Log In
                 </SecondaryAnchorButton>
