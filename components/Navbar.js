@@ -93,7 +93,7 @@ function ProfileDropdown({ userName, avatarUrl }) {
           aria-haspopup="true"
           onClick={toggleDropdown}
         >
-          <AvatarSmall userName={userName} avatarUrl={avatarUrl} />
+          <AvatarMedium userName={userName} avatarUrl={avatarUrl} />
         </button>
       </div>
       {isDropdownOpen && <DropdownMenu />}
@@ -233,7 +233,7 @@ function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/">
-              <a className="block h-8 w-auto">Snidbit</a>
+              <a className="block w-auto font-logo text-2xl">SnidBit</a>
             </Link>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
