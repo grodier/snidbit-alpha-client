@@ -5,6 +5,7 @@ import { AppContext } from '../libs/contextLib';
 import { onError } from '../libs/errorLib';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import '../styles/index.css';
 
 Amplify.configure({
   Auth: {
