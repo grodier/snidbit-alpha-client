@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import Navbar from '../components/Navbar';
+import { LabelAndInput, SubmitButton } from '../components/FormComponents';
 import { useFormFields } from '../libs/hooksLib';
 import { onError } from '../libs/errorLib';
+import { ContentContainer } from '../components/Containers';
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
@@ -21,10 +23,6 @@ export default function Signup() {
       fields.password.length > 0 &&
       fields.password === fields.confirmPassword
     );
-  }
-
-  function validateConfirmationForm() {
-    return fields.confirmationCode.length > 0;
   }
 
   async function handleSubmit(event) {
@@ -57,76 +55,125 @@ export default function Signup() {
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmationSubmit}>
-        <div>
-          <label htmlFor="confirmationCode">Confirmation Code</label>
-          <input
-            autoFocus
-            type="tel"
-            id="confirmationCode"
-            value={fields.confirmationCode}
-            onChange={handleFieldChange}
-          />
-          <p>Please check your email for the code.</p>
+      <>
+        <div className="flex flex-col py-12 sm:px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+              Almost there!
+            </h2>
+            <p className="text-gray-900 font-bold mt-1 text-center">
+              Please check your email for the code.
+            </p>
+          </div>
+
+          <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="bg-white py-8 px-4 sm:px-10">
+              <form onSubmit={handleConfirmationSubmit}>
+                <div>
+                  <LabelAndInput
+                    id="confirmationCode"
+                    label="Confirmation Code"
+                    type="tel"
+                    value={fields.confirmationCode}
+                    onChangeHandler={handleFieldChange}
+                    isRequired={true}
+                    autofocus={true}
+                    placeholder="123456"
+                  />
+                </div>
+
+                <div className="mt-6">
+                  <SubmitButton>Verify</SubmitButton>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <button type="submit" disabled={!validateConfirmationForm()}>
-          Verify
-        </button>
-      </form>
+      </>
     );
   }
 
   function renderForm() {
     return (
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            autoFocus
-            type="text"
-            id="username"
-            value={fields.username}
-            onChange={handleFieldChange}
-          />
+      <>
+        <div className="flex flex-col py-12 sm:px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+              Sign up for <span className="font-logo">SnidBit</span>
+            </h2>
+          </div>
+
+          <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="bg-white py-8 px-4 sm:px-10">
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <LabelAndInput
+                    id="username"
+                    label="Username"
+                    type="text"
+                    value={fields.username}
+                    onChangeHandler={handleFieldChange}
+                    isRequired={true}
+                    autofocus={true}
+                    placeholder="Bobby Jean"
+                  />
+                </div>
+
+                <div className="mt-6">
+                  <LabelAndInput
+                    id="email"
+                    label="Email"
+                    type="email"
+                    value={fields.email}
+                    placeholder="bobby.jean@springsteen.com"
+                    onChangeHandler={handleFieldChange}
+                    isRequired={true}
+                  />
+                </div>
+
+                <div className="mt-6">
+                  <LabelAndInput
+                    id="password"
+                    label="Password"
+                    type="password"
+                    value={fields.password}
+                    placeholder="Sup3rS3cret!"
+                    onChangeHandler={handleFieldChange}
+                    isRequired={true}
+                  />
+                </div>
+
+                <div className="mt-6">
+                  <LabelAndInput
+                    id="confirmPassword"
+                    label="Confirm Password"
+                    type="password"
+                    value={fields.confirmPassword}
+                    onChangeHandler={handleFieldChange}
+                    placeholder="Sup3rS3cret!"
+                    isRequired={true}
+                  />
+                </div>
+
+                <div className="mt-6">
+                  <SubmitButton disabled={!validateForm()}>
+                    Sign Up
+                  </SubmitButton>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={fields.email}
-            onChange={handleFieldChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={fields.password}
-            onChange={handleFieldChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={fields.confirmPassword}
-            onChange={handleFieldChange}
-          />
-        </div>
-        <button type="submit" disabled={!validateForm()}>
-          Signup
-        </button>
-      </form>
+      </>
     );
   }
 
   return (
     <div>
       <Navbar />
-      {newUser === null ? renderForm() : renderConfirmationForm()}
+      <ContentContainer>
+        {newUser === null ? renderForm() : renderConfirmationForm()}
+      </ContentContainer>
     </div>
   );
 }

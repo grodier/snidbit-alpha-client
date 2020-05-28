@@ -4,6 +4,7 @@ import { useAppContext } from '../libs/contextLib';
 import { onError } from '../libs/errorLib';
 import { API, Auth } from 'aws-amplify';
 import Link from 'next/link';
+import { ContentContainer } from '../components/Containers';
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -95,7 +96,9 @@ function App() {
   return (
     <>
       <Navbar />
-      {authStatus === 'authenticated' ? renderNotes() : renderLander()}
+      <ContentContainer>
+        {authStatus === 'authenticated' ? renderNotes() : renderLander()}
+      </ContentContainer>
     </>
   );
 }

@@ -69,7 +69,7 @@ function SecondaryAnchorButton({ url, children }) {
 function PrimaryAnchorButton({ url, children }) {
   return (
     <Link href={url}>
-      <a className="inline-block text-sm px-4 py-2 border rounded border-black hover:shadow-md">
+      <a className="inline-block text-sm px-4 py-2 border rounded border-white bg-black text-white hover:shadow-md hover:border-transparent">
         {children}
       </a>
     </Link>
@@ -114,7 +114,7 @@ function DropDownLink({ url, children }) {
 function DropDownLinkButton({ onClick, children }) {
   return (
     <div
-      aria-role="button"
+      role="button"
       onClick={onClick}
       tabIndex="0"
       className="block cursor-pointer px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
@@ -162,7 +162,7 @@ function MobileMenuLink({ url, center, children }) {
 function MobileMenuLinkButton({ onClick, children }) {
   return (
     <div
-      aria-role="button"
+      role="button"
       onClick={onClick}
       tabIndex="0"
       className="mt-1 block cursor-pointer px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
