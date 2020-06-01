@@ -12,5 +12,7 @@ export default function AuthenticatedRoute({ children, ...rest }) {
     }
   }, [authStatus]);
 
-  return <div {...rest}>{children}</div>;
+  return authStatus === 'authenticated' ? (
+    <div {...rest}>{children}</div>
+  ) : null;
 }

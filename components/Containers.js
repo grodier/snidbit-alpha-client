@@ -1,5 +1,7 @@
 import React from 'react';
 
 export function ContentContainer({ children }) {
-  return <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">{children}</div>;
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">{children}</div>
+  );
 }

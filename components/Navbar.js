@@ -172,14 +172,14 @@ function MobileMenuLinkButton({ onClick, children }) {
   );
 }
 
-function MobileMenu({ isOpen, authStatus }) {
+function MobileMenu({ isOpen, authStatus, noUser }) {
   function handleLogout() {
     Auth.signOut();
   }
 
   return (
     <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
-      {authStatus === 'authenticated' ? (
+      {authStatus === 'authenticated' && !noUser ? (
         <div className="pt-2 pb-3">
           <div className="flex items-center px-4">
             <div className="flex-shrink-0">
@@ -219,7 +219,7 @@ function MobileMenu({ isOpen, authStatus }) {
   );
 }
 
-function Navbar() {
+function Navbar({ noUser }) {
   const { authStatus } = useAppContext();
   const [isMobileMenuOpen, displayMobileMenu] = useState(false);
 
@@ -237,7 +237,7 @@ function Navbar() {
             </Link>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            {authStatus === 'authenticated' ? (
+            {authStatus === 'authenticated' && !noUser ? (
               <ProfileDropdown
                 userName="Tom Cook"
                 avatarUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -263,7 +263,11 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <MobileMenu isOpen={isMobileMenuOpen} authStatus={authStatus} />
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        authStatus={authStatus}
+        noUser={noUser}
+      />
     </nav>
   );
 }

@@ -1,106 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
-import { useAppContext } from '../libs/contextLib';
-import { onError } from '../libs/errorLib';
-import { API, Auth } from 'aws-amplify';
-import Link from 'next/link';
 import { ContentContainer } from '../components/Containers';
+import { getPostBySlug } from '../utils/markdown-posts';
+import markdownToHtml from '../utils/markdown-to-html';
+import markdownStyles from '../styles/md-landing-page.module.css';
 
-function App() {
-  const [notes, setNotes] = useState([]);
-  const [user, setUser] = useState();
-  const { authStatus } = useAppContext();
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  async function getUser() {
-    try {
-      const newUser = await Auth.currentAuthenticatedUser();
-      setUser(newUser);
-    } catch (e) {
-      onError(e);
-    }
-  }
-
-  useEffect(() => {
-    async function onLoad() {
-      if (authStatus === 'unauthenticated' || !user) {
-        return;
-      }
-
-      try {
-        const notes = await loadNotes();
-        setNotes(notes);
-      } catch (e) {
-        onError(e);
-      }
-    }
-
-    onLoad();
-  }, [authStatus, user]);
-
-  function loadNotes() {
-    return API.post('snidbits', '/getSnidbits', {
-      body: {
-        userName: user.username,
-      },
-    });
-  }
-
-  function renderNotesList(notes) {
-    return [{}].concat(notes).map((note, i) =>
-      i !== 0 ? (
-        <Link
-          key={note.SK.replace('SNIDBIT#', '')}
-          href={`/snidbit/${note.SK.replace('SNIDBIT#', '')}`}
-        >
-          <div>
-            <h4>{note.Title}</h4>
-            <span>
-              {'Created: ' + new Date(note.CreatedAt).toLocaleString()}
-            </span>
-          </div>
-        </Link>
-      ) : (
-        <Link key="new" href="/snidbit/new">
-          <div>
-            <h4>
-              <b>{'\uFF0B'}</b> Create a new note
-            </h4>
-          </div>
-        </Link>
-      )
-    );
-  }
-
-  function renderLander() {
-    return (
-      <div>
-        <h1>Snidbit</h1>
-        <p>A simple note taking app</p>
-      </div>
-    );
-  }
-
-  function renderNotes() {
-    return (
-      <div>
-        <h2>Your Notes</h2>
-        <ul>{renderNotesList(notes)}</ul>
-      </div>
-    );
-  }
-
+function App({ post }) {
   return (
     <>
-      <Navbar />
+      {console.log('post', post)}
+      <Navbar noUser />
       <ContentContainer>
-        {authStatus === 'authenticated' ? renderNotes() : renderLander()}
+        <div className="max-w-xl mx-auto mt-12 mb-16">
+          <div
+            className={markdownStyles['markdown']}
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+        </div>
       </ContentContainer>
     </>
   );
 }
 
 export default App;
+
+export async function getStaticProps() {
+  const post = getPostBySlug('landing-page', ['content']);
+  const content = await markdownToHtml(post.content || '');
+
+  return {
+    props: {
+      post: {
+        ...post,
+        content,
+      },
+    },
+  };
+}

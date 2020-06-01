@@ -1,0 +1,31 @@
+.markdown {
+  @apply text-xl;
+}
+
+.markdown p,
+.markdown ul,
+.markdown ol,
+.markdown blockquote {
+  @apply my-8;
+}
+
+.markdown ul {
+  @apply list-disc;
+}
+
+.markdown li {
+  @apply my-4 leading-6;
+}
+
+.markdown em {
+  @apply font-logo;
+}
+
+.markdown h2 {
+  @apply text-3xl mt-12 font-extrabold mb-4 leading-snug text-center;
+}
+
+.markdown h3,
+.markdown blockquote {
+  @apply text-xl font-extrabold mt-8 mb-4 leading-snug;
+}

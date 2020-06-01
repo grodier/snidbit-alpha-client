@@ -71,7 +71,7 @@ function App({ Component, pageProps }) {
       switch (data.payload.event) {
         case 'signIn':
           mutate('authenticated');
-          router.push('/');
+          router.push('/me');
           break;
         case 'signOut':
           mutate('unauthenticated');
