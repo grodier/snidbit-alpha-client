@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 import { onError } from '../../libs/errorLib';
 import { API } from 'aws-amplify';
 import { useAppContext } from '../../libs/contextLib';
+import AuthenticatedRoute from '../../components/AuthenticatedRoute';
+import { ContentContainer } from '../../components/Containers';
+import { SubmitButton } from '../../components/FormComponents';
 
 export default function NewSnidbit() {
   const router = useRouter();
@@ -36,21 +39,33 @@ export default function NewSnidbit() {
   }
 
   return (
-    <div>
+    <AuthenticatedRoute>
       <Navbar />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="content">Snidbit</label>
-          <textarea
-            id="email"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
+      <ContentContainer>
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label
+                className="block text-sm font-medium leading-5 text-gray-900"
+                htmlFor="content"
+              >
+                Snidbit
+              </label>
+              <div className="mt-1 rounded-md shadow-sm">
+                <textarea
+                  id="email"
+                  value={content}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 shadow rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 h-64"
+                  onChange={(e) => setContent(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="mt-2">
+              <SubmitButton disabled={!validateForm()}>Create</SubmitButton>
+            </div>
+          </form>
         </div>
-        <button type="submit" disabled={!validateForm()}>
-          Create
-        </button>
-      </form>
-    </div>
+      </ContentContainer>
+    </AuthenticatedRoute>
   );
 }
