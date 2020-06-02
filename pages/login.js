@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Auth } from 'aws-amplify';
-import { useRouter } from 'next/router';
 import { useAppContext } from '../libs/contextLib';
 import Navbar from '../components/Navbar';
 import { onError } from '../libs/errorLib';
@@ -9,12 +8,11 @@ import { LabelAndInput, SubmitButton } from '../components/FormComponents';
 import { ContentContainer } from '../components/Containers';
 
 function Login() {
-  const router = useRouter();
-  const { authStatus } = useAppContext();
+  const { authStatus, redirectHome } = useAppContext();
 
   useEffect(() => {
     if (authStatus === 'authenticated') {
-      router.push('/me');
+      redirectHome();
     }
   }, [authStatus]);
 

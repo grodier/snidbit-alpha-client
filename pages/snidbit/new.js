@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
-import { useRouter } from 'next/router';
 import { onError } from '../../libs/errorLib';
 import { API } from 'aws-amplify';
 import { useAppContext } from '../../libs/contextLib';
@@ -9,9 +8,8 @@ import { ContentContainer } from '../../components/Containers';
 import { SubmitButton } from '../../components/FormComponents';
 
 export default function NewSnidbit() {
-  const router = useRouter();
   const [content, setContent] = useState('');
-  const { user } = useAppContext();
+  const { user, redirectHome } = useAppContext();
 
   function validateForm() {
     return content.length > 0;
@@ -26,7 +24,7 @@ export default function NewSnidbit() {
         userName: user.username,
         title: content.trim().split('\n')[0],
       });
-      router.push('/');
+      redirectHome();
     } catch (e) {
       onError(e);
     }

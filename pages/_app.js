@@ -85,8 +85,13 @@ function App({ Component, pageProps }) {
     };
   });
 
+  function redirectHome() {
+    const home = authStatus === 'authenticated' ? '/me' : '/';
+    router.push(home);
+  }
+
   return (
-    <AppContext.Provider value={{ authStatus, user }}>
+    <AppContext.Provider value={{ authStatus, user, redirectHome }}>
       <Component {...pageProps} />
     </AppContext.Provider>
   );

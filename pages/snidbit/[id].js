@@ -39,7 +39,7 @@ export default function Notes() {
   const router = useRouter();
   const { id } = router.query;
   const [content, setContent] = useState('');
-  const { user } = useAppContext();
+  const { user, redirectHome } = useAppContext();
 
   useEffect(() => {
     function loadNote() {
@@ -86,7 +86,7 @@ export default function Notes() {
         userName: user.username,
         snidbitId: id,
       });
-      router.push('/');
+      redirectHome();
     } catch (e) {
       onError(e);
     }
@@ -114,7 +114,7 @@ export default function Notes() {
         snidbitId: id,
         userName: user.username,
       });
-      router.push('/');
+      redirectHome();
     } catch (e) {
       onError(e);
     }
